@@ -1,12 +1,15 @@
 import { SearchResults } from '@/components/SearchResults';
-import { Inter } from 'next/font/google'
 import { useCallback, useState } from 'react';
 
-const inter = Inter({ subsets: ['latin'] })
+type Results = {
+  totalPrice: number;
+  data: any[];
+}
+
 
 export default function Home() {
   const [search, setSearch] = useState('');
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<Results>({ totalPrice: 0, data: []});
 
   const handleSearch = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -19,7 +22,25 @@ export default function Home() {
     const response = await fetch(`http://localhost:3333/products?q=${search}`);
     const data = await response.json();
 
-    setResults(data);
+    const formatter = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    })
+
+    const products = data.map((product: { id: number; price: number; title: string; }) => {
+      return {
+        id: product.id,
+        price: product.price,
+        title: product.title,
+        priceFormatted: formatter.format(product.price) 
+      }
+    })
+
+    const totalPrice = data.reduce((total: any, product: { price: any; }) => {
+      return total + product.price;
+    }, 0)
+
+    setResults({ totalPrice, data: products });
   }
 
   const handleAddToWishlist = useCallback(async (id: number) => {
@@ -39,7 +60,8 @@ export default function Home() {
       </form>
 
       <SearchResults 
-        results={results} 
+        results={results.data} 
+        totalPrice={results.totalPrice}
         onAddToWishlist={handleAddToWishlist}
       />
     </div>
