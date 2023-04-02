@@ -10,18 +10,21 @@
     "server": "json-server -d 750 -w -p 3333 ./src/server.js"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^13.2.4",
     "@types/node": "18.15.11",
-    "@types/react": "18.0.32",
+    "@types/react": "^18.0.32",
     "@types/react-dom": "18.0.11",
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
+    "lodash": "^4.17.21",
     "next": "13.2.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-virtualized": "^9.22.3",
     "typescript": "5.0.3"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.192",
     "@types/react-virtualized": "^9.21.21"
   }
 }

@@ -30,14 +30,14 @@ export const SearchResults = ({ results, totalPrice, onAddToWishlist }: SearchRe
       <h2>{results.length} Produtos encontrados</h2>
       <h3>{totalPrice}</h3>
 
-      <List
+      {/* <List
         height={300}
         rowHeight={30}
         width={900}
         overscanRowCount={5}
         rowCount={results.length}
         rowRenderer={rowRenderer}
-      />
+      /> */}
     </div>
   )
 }
