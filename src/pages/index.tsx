@@ -1,6 +1,6 @@
 import { SearchResults } from '@/components/SearchResults';
 import { Inter } from 'next/font/google'
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,6 +22,9 @@ export default function Home() {
     setResults(data);
   }
 
+  const handleAddToWishlist = useCallback(async (id: number) => {
+    console.log(id);
+  }, [])
   return (
     <div>
       <h1>Search</h1>
@@ -35,7 +38,10 @@ export default function Home() {
         <button type="submit">Buscar</button>
       </form>
 
-      <SearchResults results={results} />
+      <SearchResults 
+        results={results} 
+        onAddToWishlist={handleAddToWishlist}
+      />
     </div>
   )
 }
